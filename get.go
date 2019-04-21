@@ -26,4 +26,14 @@ func getValue(i map[string]interface{}, key string) (interface{}, error) {
 	return value, nil
 }
 
-//func castValue(val interface{})
+func getValueOfKey(i interface{}, k string) (interface{}, error) {
+	m, err := convertMap(i)
+	if err != nil {
+		return nil, err
+	}
+	v, err := getValue(m, k)
+	if err != nil {
+		return nil, err
+	}
+	return v, nil
+}

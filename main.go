@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
 
 var (
@@ -14,6 +15,24 @@ var (
 func main() {
 
 	flag.Parse()
-	fmt.Println(*path, *key, *outputType)
+	//fmt.Println(*path, *key, *outputType)
 
+	obj, err := readJSONFile(*path)
+	if err != nil {
+		errMessage := "ERROR : " + err.Error()
+		fmt.Fprintln(os.Stderr, errMessage)
+		os.Exit(1)
+		return
+	}
+
+	value, err := getValueOfKey(obj, *key)
+	if err != nil {
+		errMessage := "ERROR : " + err.Error()
+		fmt.Fprintln(os.Stderr, errMessage)
+		os.Exit(1)
+		return
+	}
+
+	fmt.Println(value)
+	os.Exit(0)
 }

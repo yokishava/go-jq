@@ -72,3 +72,7 @@ func TestGetValueError(t *testing.T) {
 		t.Fatal("failed : TestGetValueError")
 	}
 }
+
+// func TestGetVaueOfKey(t *testing.T) {
+
+// }

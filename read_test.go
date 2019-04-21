@@ -60,3 +60,11 @@ func TestReadFileError(t *testing.T) {
 		t.Fatal("failed TestReadFileError")
 	}
 }
+
+func TestReadJSONFileSuccess(t *testing.T) {
+	filePath := "./testfiles/sample.json"
+	_, err := readJSONFile(filePath)
+	if err != nil {
+		t.Fatalf("failed : TestReadJSONFileSuccess : %#v", err)
+	}
+}
