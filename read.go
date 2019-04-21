@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"strings"
 )
@@ -40,6 +41,28 @@ func readFile(p string) ([]byte, error) {
 		return nil, newerr
 	}
 	return data, err
+}
+
+//readJOSN : convert to interface{} object from json file
+func readJSONFile(p string) (interface{}, error) {
+	err := isExist(p)
+	if err != nil {
+		return nil, err
+	}
+	err = isJSON(p)
+	if err != nil {
+		return nil, err
+	}
+	b, e := readFile(p)
+	if e != nil {
+		return nil, e
+	}
+	var i interface{}
+	err = json.Unmarshal(b, &i)
+	if err != nil {
+		return nil, err
+	}
+	return i, nil
 }
 
 // func readJson() {

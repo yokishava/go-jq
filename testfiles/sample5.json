@@ -1,0 +1,15 @@
+{
+  "test": "test",
+  "sample": 1,
+  "flag": true,
+  "member": [
+    {
+      "name": "taro",
+      "age": 19
+    },
+    {
+      "name": "takeshi",
+      "age": 41
+    }
+  ]
+}

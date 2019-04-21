@@ -1,0 +1,12 @@
+[
+  {
+    "test": "test",
+    "sample": 1,
+    "flag": true
+  },
+  {
+    "test": "testtest",
+    "sample": 123,
+    "flag": false
+  }
+]

@@ -12,4 +12,6 @@
 *.out
 
 MEMO.md
-*.json
+#*.json
+
+go-jq

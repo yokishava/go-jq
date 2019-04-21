@@ -45,7 +45,7 @@ func TestIsJSONError2(t *testing.T) {
 }
 
 func TestReadFileSuccess(t *testing.T) {
-	testData := "./sample.json"
+	testData := "./testfiles/sample.json"
 	_, err := readFile(testData)
 	if err != nil {
 		t.Fatalf("failed TestReadFileSuccess : %#v", err)
@@ -58,5 +58,13 @@ func TestReadFileError(t *testing.T) {
 	_, err := readFile(testData)
 	if err == nil {
 		t.Fatal("failed TestReadFileError")
+	}
+}
+
+func TestReadJSONFileSuccess(t *testing.T) {
+	filePath := "./testfiles/sample.json"
+	_, err := readJSONFile(filePath)
+	if err != nil {
+		t.Fatalf("failed : TestReadJSONFileSuccess : %#v", err)
 	}
 }

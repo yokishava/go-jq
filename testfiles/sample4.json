@@ -1,0 +1,9 @@
+{
+  "test": "test",
+  "sample": 1,
+  "flag": true,
+  "eeee": {
+    "name": "taro",
+    "age": 19
+  }
+}
