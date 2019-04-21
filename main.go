@@ -33,6 +33,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(value)
+	//fmt.Println(value)
+	fmt.Fprintln(os.Stdout, value)
 	os.Exit(0)
 }
