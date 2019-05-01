@@ -8,3 +8,4 @@ jobs:
     steps:
       - checkout
       - run: go test -v -cover
+      - run: go test github.com/wakashiyo/go-jq/args -v -cover
