@@ -7,4 +7,5 @@ jobs:
     working_directory: /go/src/github.com/wakashiyo/go-jq
     steps:
       - checkout
-      - run: go test -v
+      - run: go test -v -cover
+      - run: go test github.com/wakashiyo/go-jq/args -v -cover
