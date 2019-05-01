@@ -104,3 +104,52 @@ func TestArgWhileArrayTrue(t *testing.T) {
 	}
 	//fmt.Println(as.scan.result)
 }
+
+func TestArgWhileOnlyPeriod(t *testing.T) {
+	var as ArgState
+	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
+	q := "."
+	var i interface{}
+	as.init(d, q, &i)
+
+	as.argWhile()
+
+	if len(as.scan.result) != 0 {
+		t.Fatal("failed TestArgWhileOnlyPeriod")
+	}
+}
+
+func TestArgWhileOnlyKey(t *testing.T) {
+	var as ArgState
+	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
+	q := ".item"
+	var i interface{}
+	as.init(d, q, &i)
+
+	as.argWhile()
+
+	if len(as.scan.result) == 0 {
+		t.Fatal("failed TestArgWhileOnlyKey len(as.scan.result)")
+	}
+	if as.scan.result[0].arg != "item" {
+		t.Fatal("failed TestArgWhileOnlyKey as.scan.result[0].arg")
+	}
+}
+
+func TestArgWhileOnlyArray(t *testing.T) {
+	var as ArgState
+	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
+	q := ".[]"
+	var i interface{}
+	as.init(d, q, &i)
+
+	as.argWhile()
+
+	if len(as.scan.result) == 0 {
+		t.Fatal("failed TestArgWhileOnlyArray len(as.scan.result)")
+	}
+	if as.scan.result[0].isArray != true {
+		t.Fatal("failed TestArgWhileOnlyArray as.scan.result[0].isArray")
+	}
+	//fmt.Println(as.scan.result[0])
+}

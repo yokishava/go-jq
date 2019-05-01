@@ -34,5 +34,12 @@ func (as *ArgState) argWhile() {
 	for i := 0; i < len(str); i++ {
 		s.step(s, str[i])
 	}
-	s.extractResult()
+	if len(s.argBytes) != 0 {
+		s.extractResult()
+		return
+	}
+	if s.isArray == true {
+		s.extractResult()
+		return
+	}
 }
