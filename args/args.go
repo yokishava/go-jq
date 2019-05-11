@@ -1,7 +1,7 @@
 package args
 
-//ArgState have output data and input data, query...
-type ArgState struct {
+//argState have output data and input data, query...
+type argState struct {
 	//json data
 	data interface{}
 	//query string
@@ -14,22 +14,21 @@ type ArgState struct {
 
 //ExtractValue extract value from json data
 func ExtractValue(d interface{}, a string, r *interface{}) {
-	var as ArgState
+	var as argState
 	as.init(d, a, r)
 	as.argWhile()
 }
 
 //initialize ArgState
-func (as *ArgState) init(d interface{}, a string, r *interface{}) *ArgState {
+func (as *argState) init(d interface{}, a string, r *interface{}) {
 	as.data = d
 	as.arg = a
 	as.result = r
 	as.scan.initScanner()
-	return as
 }
 
 //check arg (query), one character at a time
-func (as *ArgState) argWhile() {
+func (as *argState) argWhile() {
 	str, s := as.arg, &as.scan
 	for i := 0; i < len(str); i++ {
 		s.step(s, str[i])
