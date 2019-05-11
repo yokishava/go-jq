@@ -5,7 +5,7 @@ import (
 )
 
 func TestArgStateInit(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	q := ".item[].name"
 	var i interface{}
@@ -24,7 +24,7 @@ func TestArgStateInit(t *testing.T) {
 }
 
 func TestArgWhileArrayFalse(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	//q := ".item[].name"
 	q := ".item.name"
@@ -72,7 +72,7 @@ func TestArgWhileArrayFalse(t *testing.T) {
 }
 
 func TestArgWhileArrayTrue(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	q := ".item[].name"
 	var i interface{}
@@ -106,7 +106,7 @@ func TestArgWhileArrayTrue(t *testing.T) {
 }
 
 func TestArgWhileOnlyPeriod(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	q := "."
 	var i interface{}
@@ -120,7 +120,7 @@ func TestArgWhileOnlyPeriod(t *testing.T) {
 }
 
 func TestArgWhileOnlyKey(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	q := ".item"
 	var i interface{}
@@ -137,7 +137,7 @@ func TestArgWhileOnlyKey(t *testing.T) {
 }
 
 func TestArgWhileOnlyArray(t *testing.T) {
-	var as ArgState
+	var as argState
 	d := map[string]string{"flag": "true", "sample": "1", "test": "morning"}
 	q := ".[]"
 	var i interface{}
