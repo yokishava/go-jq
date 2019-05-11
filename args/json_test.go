@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// query : .test
 func TestJsonRead1(t *testing.T) {
 	var v interface{}
 	json.Unmarshal([]byte(`{
@@ -37,6 +38,7 @@ func TestJsonRead1(t *testing.T) {
 	}
 }
 
+// query : .test[0]
 func TestJsonRead2(t *testing.T) {
 	var v interface{}
 	json.Unmarshal([]byte(`{
@@ -87,6 +89,7 @@ func TestJsonRead2(t *testing.T) {
 	}
 }
 
+// query : .test[0].name
 func TestJsonRead3(t *testing.T) {
 	var v interface{}
 	json.Unmarshal([]byte(`{
@@ -134,8 +137,8 @@ func TestJsonRead3(t *testing.T) {
 	}
 }
 
+// query : .test[0].name.first
 func TestJsonRead4(t *testing.T) {
-	// .test[0].name.first
 	var v interface{}
 	json.Unmarshal([]byte(`{
   													"test": [
@@ -195,8 +198,8 @@ func TestJsonRead4(t *testing.T) {
 	}
 }
 
+// query : .test[].name.first
 func TestJsonRead5(t *testing.T) {
-	// .test[].name.first
 	var v interface{}
 	json.Unmarshal([]byte(`{
   													"test": [
@@ -278,8 +281,8 @@ func TestJsonRead5(t *testing.T) {
 	// }
 }
 
+// query : .test[0].name[1].first
 func TestJsonRead6(t *testing.T) {
-	// .test[0].name[1].first
 	var v interface{}
 	json.Unmarshal([]byte(`{
   													"test": [
@@ -351,8 +354,8 @@ func TestJsonRead6(t *testing.T) {
 	}
 }
 
+// query : .test[0].name[].second
 func TestJsonRead7(t *testing.T) {
-	// .test[0].name[].second
 	var v interface{}
 	json.Unmarshal([]byte(`{
   													"test": [
@@ -435,8 +438,8 @@ func TestJsonRead7(t *testing.T) {
 	}
 }
 
+// query : .test[].name[].second
 func TestJsonRead8(t *testing.T) {
-	// .test[].name[]
 	var v interface{}
 	json.Unmarshal([]byte(`{
   													"test": [
@@ -448,7 +451,7 @@ func TestJsonRead8(t *testing.T) {
 																	},
 																	{
 																		"first": "zzzz",
-																		"second": "xxxx"	
+																		"second": "xxxx"
 																	}
 																],
 																"age": 19
@@ -461,7 +464,7 @@ func TestJsonRead8(t *testing.T) {
 																	},
 																	{
 																		"first": "yyyy",
-																		"second": "eeee"	
+																		"second": "eeee"
 																	}
 																],
 																"age": 31
@@ -529,5 +532,82 @@ func TestJsonRead8(t *testing.T) {
 	}
 	if len(m) != 4 {
 		t.Fatal("count isn't 4")
+	}
+}
+
+// query : .test[].name[1].second
+func TestJsonRead9(t *testing.T) {
+	var v interface{}
+	json.Unmarshal([]byte(`{
+  													"test": [
+															{
+																"name": [
+																	{
+																		"first": "aaaa",
+																		"second": "bbbb"
+																	},
+																	{
+																		"first": "zzzz",
+																		"second": "xxxx"	
+																	}
+																],
+																"age": 19
+															},
+															{
+																"name": [
+																	{
+																		"first": "cccc",
+																		"second": "dddd"
+																	},
+																	{
+																		"first": "yyyy",
+																		"second": "eeee"	
+																	}
+																],
+																"age": 31
+															}
+														],
+														"data": 1
+													}`), &v)
+	s := scanResult{
+		arg:     "test",
+		isArray: true,
+		isIndex: false,
+		index:   0,
+	}
+	s2 := scanResult{
+		arg:     "name",
+		isArray: true,
+		isIndex: true,
+		index:   1,
+	}
+	s3 := scanResult{
+		arg:     "second",
+		isArray: false,
+		isIndex: false,
+		index:   0,
+	}
+	ss := []scanResult{}
+	ss = append(ss, s)
+	ss = append(ss, s2)
+	ss = append(ss, s3)
+	js := jsonState{
+		statement:   v,
+		queryResult: ss,
+		isArray:     false,
+	}
+	js.jsonread()
+	fmt.Println(js.statement)
+	if js.statement == nil {
+		t.Fatal("statement is nil")
+	}
+	r, _ := js.statement.([]interface{})
+	m := r[0].(string)
+	if m != "dddd" {
+		t.Fatal("error")
+	}
+	m = r[1].(string)
+	if m != "eeee" {
+		t.Fatal("error")
 	}
 }
