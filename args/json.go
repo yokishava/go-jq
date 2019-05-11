@@ -11,7 +11,7 @@ package args
 
 type jsonState struct {
 	//interface object after unmarshal json (input)
-	data interface{}
+	//data interface{}
 	//slice of scanResult
 	queryResult []scanResult
 	//Data of output read from queryResult
@@ -59,7 +59,7 @@ func (js *jsonState) arrayCheck(sr scanResult) {
 }
 
 func (js *jsonState) extractObjectFromKey(arg string) {
-	r, _ := js.data.(map[string]interface{})[arg]
+	r, _ := js.statement.(map[string]interface{})[arg]
 	js.statement = r
 }
 
@@ -72,8 +72,20 @@ func (js *jsonState) scanStatement(arg string) {
 	r, _ := js.statement.([]interface{})
 	n := []interface{}{}
 	for _, v := range r {
-		val, _ := v.(map[string]interface{})[arg]
-		n = append(n, val)
+		val, b := v.(map[string]interface{})
+		if b == true {
+			n = append(n, val[arg])
+		} else {
+			scanArrayStatement(&n, v, arg)
+		}
 	}
 	js.statement = interface{}(n)
+}
+
+func scanArrayStatement(n *[]interface{}, v interface{}, arg string) {
+	r, _ := v.([]interface{})
+	for _, cr := range r {
+		gcr, _ := cr.(map[string]interface{})[arg]
+		*n = append(*n, gcr)
+	}
 }
