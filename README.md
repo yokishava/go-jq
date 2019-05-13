@@ -13,7 +13,7 @@ All you can do is extract the value you want from json. The usage is described i
 ## Example
 
 
-## Instration
+## Installation
 
 
 ## Commad Line Options
