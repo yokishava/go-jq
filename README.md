@@ -1,6 +1,6 @@
 # go-jq
 
-It is a command line tool that can get the value etc. that you want from json with a query like jq.
+It is a command line tool that can get the value etc. that you want from json with a query like [jq](https://stedolan.github.io/jq/).
 
 ## Description
 
